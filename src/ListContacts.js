@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 
 function ListContacts(props) {
@@ -19,6 +20,12 @@ function ListContacts(props) {
             ))}
         </ol>
     );
+}
+
+ListContacts.propTypes = {
+    contacts: Proptypes.array.isRequired,
+    onDeleteContact: Proptypes.func.isRequired,
+
 }
 
 
