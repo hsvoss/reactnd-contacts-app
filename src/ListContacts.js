@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 class ListContacts extends Component {
-    static propTypes = {
-        contacts: Proptypes.array.isRequired,
-        onDeleteContact: Proptypes.func.isRequired,
-
-    };
 
     state = {
         query: '',
@@ -26,7 +21,7 @@ class ListContacts extends Component {
 
     render() {
         const {query} = this.state;
-        const {contacts, onDeleteContact} = this.props;
+        const {contacts, onDeleteContact, onNavigate} = this.props;
 
         const showingContacts = query === ''
             ? contacts
@@ -43,13 +38,13 @@ class ListContacts extends Component {
                         value={query}
                         onChange={event => this.updateQuery(event.target.value)}
                     />
+                    <a href='#create' onClick={() => onNavigate()} className='add-contact'>Add Contact</a>
                 </div>
 
                 {showingContacts.length !== contacts.length && (
                     <div className='showing-contacts'>
                         <span>Now showing {showingContacts.length} od {contacts.length}</span>
                         <button onClick={this.clearQuery}>Show all</button>
-
                     </div>)}
 
                 <ol className={'contact-list'}>
@@ -74,6 +69,14 @@ class ListContacts extends Component {
         );
     }
 }
+
+
+ListContacts.PropTypes = {
+    contacts: PropTypes.array.isRequired,
+    onDeleteContact: PropTypes.func.isRequired,
+    onNavigate: PropTypes.func.isRequired
+
+};
 
 
 export default ListContacts
